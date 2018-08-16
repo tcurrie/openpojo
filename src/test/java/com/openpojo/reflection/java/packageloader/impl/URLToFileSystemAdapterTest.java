@@ -18,14 +18,14 @@
 
 package com.openpojo.reflection.java.packageloader.impl;
 
-import java.io.File;
-import java.net.MalformedURLException;
-import java.net.URL;
-
 import com.openpojo.reflection.exception.ReflectionException;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+
+import java.io.File;
+import java.net.MalformedURLException;
+import java.net.URL;
 
 /**
  * @author oshoukry
@@ -79,14 +79,25 @@ public class URLToFileSystemAdapterTest {
     validateURLtoExpectedFilePath(expectedFilePath, "file://ourserver.com/A%20Server%20Path/");
   }
 
+  @Test
+  public void whenUriIncludesJarTreatAsFile() {
+    validateURLtoExpectedFilePath(rootPrefix + "C:/proj/dir/library.jar!/file.ext", "jar:file:///C:/proj/dir/library.jar!/file.ext");
+  }
+
+  @Test
+  public void whenUriIncludesJarButNoProtocolSeparatorTreatAsFile() {
+    validateURLtoExpectedFilePath(rootPrefix + "C:/proj/dir/library.jar!/file.ext", "jar:file:/C:/proj/dir/library.jar!/file.ext");
+  }
+
   private void validateURLtoExpectedFilePath(String expectedFilePath, String url) {
     try {
       URLToFileSystemAdapter urlToFileSystemAdapter = new URLToFileSystemAdapter(new URL(url));
       String absolutePath = urlToFileSystemAdapter.getAsFile().getAbsolutePath();
+      System.out.println(absolutePath);
       Assert.assertEquals(expectedFilePath, absolutePath);
     } catch (MalformedURLException e) {
-      Assert.fail("Exception encountered: " + e);
       e.printStackTrace();
+      Assert.fail("Exception encountered: " + e);
     }
   }
 }

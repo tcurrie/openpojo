@@ -18,12 +18,12 @@
 
 package com.openpojo.reflection.java.packageloader.impl;
 
+import com.openpojo.reflection.exception.ReflectionException;
+
 import java.io.File;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
-
-import com.openpojo.reflection.exception.ReflectionException;
 
 /**
  * @author oshoukry
