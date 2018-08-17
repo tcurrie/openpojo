@@ -18,14 +18,14 @@
 
 package com.openpojo.reflection.java.packageloader.impl;
 
+import java.io.File;
+import java.net.MalformedURLException;
+import java.net.URL;
+
 import com.openpojo.reflection.exception.ReflectionException;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-
-import java.io.File;
-import java.net.MalformedURLException;
-import java.net.URL;
 
 /**
  * @author oshoukry
@@ -93,7 +93,6 @@ public class URLToFileSystemAdapterTest {
     try {
       URLToFileSystemAdapter urlToFileSystemAdapter = new URLToFileSystemAdapter(new URL(url));
       String absolutePath = urlToFileSystemAdapter.getAsFile().getAbsolutePath();
-      System.out.println(absolutePath);
       Assert.assertEquals(expectedFilePath, absolutePath);
     } catch (MalformedURLException e) {
       e.printStackTrace();
